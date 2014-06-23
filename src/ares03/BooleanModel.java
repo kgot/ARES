@@ -21,19 +21,6 @@ import jboolexpr.MalformedBooleanException;
  * @author Terminal
  */
 
-
-//   - jboolexpr example -
-//
-//    String expr = "!true&&(true||false)";
-//            BooleanExpression boolexpr = null;
-//            try {
-//                boolexpr = BooleanExpression.readLeftToRight(expr);
-//                Boolean bool = boolexpr.booleanValue();
-//                System.out.println(bool.toString());
-//            } catch (MalformedBooleanException ex) {
-//                Logger.getLogger(BooleanModel.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-
 public class BooleanModel {
     private InvertedIndex index ;
     private HashMap<String,int[]> weightsmap;
@@ -78,7 +65,6 @@ public class BooleanModel {
         // exagogi ton varon gia kathe oro
         while(in.hasMoreTokens()){
                     String token = in.nextToken();
-                    //System.out.println(in.nextToken());
 
                     if(token.equals(conj) || token.equals(disj) || 
                        token.equals(neg) || token.equals(par1) || token.equals(par2)){
@@ -102,7 +88,6 @@ public class BooleanModel {
             //apo tin BooleanExpression tis vivliothikis jboolexpr
              while(in.hasMoreTokens()){
                         String token = in.nextToken();
-                        //System.out.println(in.nextToken());
 
                         if(token.equals(conj)){
                             expr += "&&";
@@ -134,7 +119,6 @@ public class BooleanModel {
              try {
                 boolexpr = BooleanExpression.readLeftToRight(expr);
                 bool = boolexpr.booleanValue();
-                //System.out.println(bool.toString());
              } catch (MalformedBooleanException ex) {
                 Logger.getLogger(BooleanModel.class.getName()).log(Level.SEVERE, null, ex);
              }
