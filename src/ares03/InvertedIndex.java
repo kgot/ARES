@@ -79,10 +79,7 @@ public class InvertedIndex implements Serializable {
         while(it.hasNext()){
             token = (String) it.next();
 
-            //System.out.println(token);
-
             if(stopwordList.contains(token)){
-                //System.out.println(token + "       stopword");
                 continue;
             }
             
