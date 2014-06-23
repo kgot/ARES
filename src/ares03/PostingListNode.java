@@ -16,8 +16,6 @@ public class PostingListNode implements Serializable {
 
     private int docID;
     private int tf;    //term frequency
-//    private int maxTf; //maximum term frequency
-//    private int size;  //sinolo ksexwristwn orwn tou document
 
     public PostingListNode() {
     }
@@ -33,20 +31,6 @@ public class PostingListNode implements Serializable {
         this.tf = tf;
 
     }
-
-//    /**
-//     *
-//     * @param docID
-//     * @param tf
-//     * @param maxTf
-//     * @param size
-//     */
-//    public PostingListNode(int docID, int tf,int maxTf,int size){
-//        this.docID = docID;
-//        this.tf = tf;
-//        this.size = size;
-//        this.maxTf = maxTf;
-//    }
 
     /**
      * 
@@ -67,22 +51,6 @@ public class PostingListNode implements Serializable {
     public int getTF() {
         return tf;
     }
-    
-//    /**
-//     * 
-//     * @return max frequency of a word in the document
-//     */
-//    public int getMaxTf(){
-//        return maxTf;
-//    }
-//    
-//    /**
-//     * 
-//     * @return
-//     */
-//    public int size(){
-//        return size;
-//    }
 
     /**
      * methodos toString gia dokimes
