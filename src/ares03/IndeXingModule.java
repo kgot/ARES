@@ -56,7 +56,7 @@ public class IndeXingModule {
 
         try {
             ObjectInputStream collection=new ObjectInputStream(new FileInputStream(colFileName));
-            //diavasma tou katalogou os antikeimeno
+            // read index as object
             index = (InvertedIndex) collection.readObject();
             System.out.println("");
 
