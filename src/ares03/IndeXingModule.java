@@ -48,10 +48,6 @@ public class IndeXingModule {
         while(it.hasNext()){
             index.add(it.next());
         }
-
-
-        //System.out.println(index.toString());
-
     }
 
     /**
