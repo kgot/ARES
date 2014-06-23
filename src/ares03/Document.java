@@ -9,16 +9,16 @@ import java.io.Serializable;
 
 
 /**
- *
+ * A class implementing a document.
+ * 
  * @author Terminal
  */
 public class Document implements Serializable {
     private int id;
     private String title = "";
     private String content = "";
-    //private TRECParser parser = new TRECParser();
-    private int maxTF ; //megisti sixnotita emfanisis kapias leksis
-    private int size;   //ari8mos diaforetikon orwn pou apoteleitai to eggrafo.
+    private int maxTF ; // max term frequency
+    private int size;   // number of different terms in a document 
 
 
     /**
@@ -89,7 +89,7 @@ public class Document implements Serializable {
 
     /**
      *
-     * @param size to pli8os ksexoristwn orwn tou eggrafou
+     * @param size number of different terms in a document
      */
     public void setSize(int size){
         this.size = size;
@@ -97,7 +97,7 @@ public class Document implements Serializable {
 
     /**
      *
-     * @param maxTF h megisti sixnotita kapoias leksis sto eggrafo
+     * @param maxTF max term frequency
      */
     public void setMaxTf(int maxTF){
         this.maxTF = maxTF;
@@ -105,7 +105,7 @@ public class Document implements Serializable {
     }
 
     /**
-     *  toString gia dokimes
+     *  toString for tests
      */
     @Override
     public String toString() {
