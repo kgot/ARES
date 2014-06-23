@@ -16,18 +16,17 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
 /**
- * Klasi pou ilopoiei tin anagnosi keimenou apo arheio pdf
- * kai to epistrefei se text morfi gia epexergasia.
+ * A class that implements a pdf parser that returns palin text.
  *
- * Hrisimopoiei tis vivliothikes pdfbox, fontbox, jempbox, commons-logging tou Apache.
+ * Uses the pdfbox, fontbox, jempbox, commons-logging Apache libraries.
  *
  * @author kgot
  */
 public class PDFTextParser {
 
     /**
-     * Kanei exagogi keimenou apo arheio pdf to opoio periehei keimeno.
-     * Epistrefei to parsarismeno keimeno se String.
+     * Imports text from pdf file.
+     * Returns a string with the parsed text.
      *
      * @param fileName
      * @return parsedText
@@ -57,7 +56,7 @@ public class PDFTextParser {
 			cosDoc = parser.getDocument();
 			pdfStripper = new PDFTextStripper();
 			pdDoc = new PDDocument(cosDoc);
-                        //metatropi se aplo keimeno
+                        // transform to text
 			parsedText = pdfStripper.getText(pdDoc);
 		} catch (Exception e) {
 			Logger.getLogger(PDFTextParser.class.getName()).log(Level.SEVERE, null, e);
