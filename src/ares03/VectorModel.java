@@ -53,6 +53,7 @@ public class VectorModel {
         this.idf = new double[queryTerms.size()];           //dimiourgei ena pinaka gia ta idf pou einai oso einai kai oi ksexoristoi oroi tou query
         
     }
+    
     /**
      *
      * @param similarity
@@ -60,6 +61,7 @@ public class VectorModel {
     public void setSimilarityFunc(int similarity){
         this.similarityFunc = similarity;
     }
+    
     /**
      * 
      * @return similarity
@@ -179,9 +181,6 @@ public class VectorModel {
                 currentPLN =(PostingListNode) j.next();
                 docID = currentPLN.getDocID();
                 termF = currentPLN.getTF();
-
-                //maxTF = idx.getDocList().get(docID-1).getMaxTF();
-                //docWeight = this.getWeightNorm(termF,maxTF,idf[index]);
 
                 //upologismos barous tou orou tou eggrafou
                 docWeight = this.getWeightNorm(termF,1,idf[index]);
