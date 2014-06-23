@@ -25,11 +25,11 @@ public class IndeXingModule {
 
     private InvertedIndex index;
     private String inputFileName = "";
-    private String colFileName = ""; //arheio me katalixi .col
+    private String colFileName = ""; // file with .col extension
 
 
     /**
-     * Auti i methodos htizei enan katalogo diavazontas ta eggrafa tou apo ena arheio.
+     * This method builds an index by scanning the documents of a file.
      */
     public void build() {
         
@@ -39,11 +39,10 @@ public class IndeXingModule {
         //parser
         TRECParser docparser = new TRECParser();
         
-        //ginetai parsing arheion - ohi oron!
+        // file parsing - not term parsing!
         docList = docparser.readDocs(inputFileName);
-        //System.out.println(docList.size());
 
-        //kathe arheio pou vrike o parser prostithetai ston katalogo 
+        // every document is added in index
         Iterator<Document> it = docList.iterator();
         while(it.hasNext()){
             index.add(it.next());
@@ -51,7 +50,7 @@ public class IndeXingModule {
     }
 
     /**
-     * Anoigma sillogis gia tin opoia idi iparhei katalogos.
+     * Open a collection for existing index.
      */
     public void openCollection(){
 
@@ -71,12 +70,12 @@ public class IndeXingModule {
     }
 
     /**
-     * Apothikeusi se arheio kai kleisimo tis iparhousas sillogis.
+     * Store in file and close the collection.
      */
     public void closeCollection(){
         try {
             ObjectOutputStream collection = new ObjectOutputStream(new FileOutputStream(colFileName));
-            //eggrafi tou katalogou os antikeimeno
+            // write index ti file through stream
             collection.writeObject(index);
             System.out.println("");
 
