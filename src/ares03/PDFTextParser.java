@@ -16,7 +16,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
 /**
- * A class that implements a pdf parser that returns palin text.
+ * A class that implements a pdf parser that returns plain text.
  *
  * Uses the pdfbox, fontbox, jempbox, commons-logging Apache libraries.
  *
