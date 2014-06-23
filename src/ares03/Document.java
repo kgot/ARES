@@ -31,7 +31,6 @@ public class Document implements Serializable {
         this.id = id;
         this.title = title;
         this.content = content;
-        //parser.getTerms(this);
     }
 
     /**
@@ -104,10 +103,6 @@ public class Document implements Serializable {
         this.maxTF = maxTF;
 
     }
-
-//    public String[] getTerms (){
-//
-//    }
 
     /**
      *  toString gia dokimes
