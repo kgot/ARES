@@ -22,6 +22,7 @@ public class UIModule {
     private static IndeXingModule ixm = null;
     private static InvertedIndex index = null;
     private static DecimalFormat df = new DecimalFormat("#.##"); //gia na formarontai ta apotelesmata
+    
     /**
      * @param args the command line arguments
      */
