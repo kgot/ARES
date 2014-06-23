@@ -16,18 +16,18 @@ import javax.swing.text.rtf.RTFEditorKit;
 
 
 /**
- * Klasi pou ilopoiei tin anagnosi keimenou apo arheio rtf
- * kai to epistrefei se text morfi gia epexergasia.
+ * 
+ * A class that implements an rtf parser that returns plain text.
  *
- * Hrisimopoiei tis vivliothikes RTFEditorKit, Document tou Java Swing.
+ * uses the RTFEditorKit, Document libraries of Java Swing.
  *
  * @author Terminal
  */
 public class RTFTextParser {
 
     /**
-     * Kanei exagogi keimenou apo arheio rtf to opoio periehei keimeno.
-     * Epistrefei to parsarismeno keimeno se String.
+     * Imports text from an rtf file.
+     * Returns a string with plain text.
      *
      * @param fileName
      * @return plainText
@@ -39,9 +39,9 @@ public class RTFTextParser {
             RTFEditorKit kit = new RTFEditorKit();
             Document doc = kit.createDefaultDocument();
 
-            //diavazei to reuma arheiou kai to metatrepei se Document
+            // reads the input stream and transform it into a document
             kit.read(fis, doc, 0);
-            //metatrepei to Document se aplo keimeno
+            // transfrom the document into plain text
             String plainText = doc.getText(0, doc.getLength());
 
             return plainText;
