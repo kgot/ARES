@@ -32,6 +32,7 @@ public class TRECParser {
     private String ignoreB = ".B";
     private int maxTF ;  //Briskei tin megisti syxnotita emfanisis kapias leksis  sto ka8e doc
     private String stopwordsFile = "stopwords.txt";
+    
     /**
      * 
      * @return
@@ -59,19 +60,15 @@ public class TRECParser {
             
             StringTokenizer in;
 
-                //System.out.println(s);
             in= new StringTokenizer(text," \n");
 
             while(in.hasMoreTokens()){
                 String token = in.nextToken();
-                //System.out.println(in.nextToken());
 
                 if(token.equals(id)){
 
                     if(firstDoc == 1){
-                        //System.out.println(words);
                         Document doc = new Document(docID, titlewords, words);
-                        //doc.toString();
                         docList.add(doc);
                         doc.toString();
                         words = "";
@@ -122,19 +119,15 @@ public class TRECParser {
 
             String line = "";
             while((line = reader.readLine()) != null){
-                //System.out.println(s);
                 in= new StringTokenizer(line," \n");
 
                 while(in.hasMoreTokens()){
                     String token = in.nextToken();
-                    //System.out.println(in.nextToken());
 
                     if(token.equals(id)){
 
                         if(firstDoc == 1){
-                            //System.out.println(words);
                             Document doc = new Document(docID, titlewords, words);
-                            //doc.toString();
                             docList.add(doc);
                             doc.toString();
                             words = "";
@@ -156,11 +149,9 @@ public class TRECParser {
                         }
                         else{
                             if(mode == 1){
-                            //words.add(token);
                                 words += token + " ";
                             }
                             else if(mode == 2){
-                            //titlewords.add(token);
                                 titlewords += token + " ";
                         }
                             else if(mode == 3){
@@ -210,7 +201,6 @@ public class TRECParser {
             String line = "";
             int check = 0;
             while((line = reader.readLine()) != null){
-                //System.out.println(s);
                 in= new StringTokenizer(line," \n");
 
 
@@ -378,12 +368,8 @@ public class TRECParser {
                 while(in.hasMoreTokens()){
                     String token = in.nextToken();
                     stopwords.add(token);
-                    //System.out.println("i:"+ i +" token: " + token);
-
                 }
             }
-
-                    //System.out.println(in.nextToken());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TRECParser.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
