@@ -53,7 +53,7 @@ public class PostingListNode implements Serializable {
     }
 
     /**
-     * methodos toString gia dokimes
+     * toString method for tests
      */
     @Override
     public String toString() {
