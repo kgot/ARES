@@ -14,9 +14,9 @@ import jboolexpr.BooleanExpression;
 import jboolexpr.MalformedBooleanException;
 
 /**
- * Ilopoiisi tis anazitisis me vasi to boolean montelo.
- * I klasi periehei methodo gia tin exagogi ton varon kai ton ipologismo ton omoiotiton
- * me vasi dosmeno query kai mia methodo gia tin ektiposi ton apotelesmaton.
+ * A search implementation based on boolean model.
+ * This class contains a method for the weights and similarity calculation
+ * based on given query a print method.
  *
  * @author Terminal
  */
@@ -24,7 +24,7 @@ import jboolexpr.MalformedBooleanException;
 public class BooleanModel {
     private InvertedIndex index ;
     private HashMap<String,int[]> weightsmap;
-    // pinakas omoiotiton
+    // similarity array
     private int[] simtab;
 
     private String conj = "AND";
@@ -44,9 +44,9 @@ public class BooleanModel {
     }
 
     /**
-     * Epexergazetai mia query. Exagontai prota ta vari olon ton oron tis query
-     * kai epeita ipologizontai oi omoiotites ton meso tis logikis ekfrasis.
-     * Ginetai hrisi tis vivliothikis jboolexpr gia tin analisi tis logikis ekfrasis.
+     * 
+     * Query parser. Firstly all weights are calculated and then the similarities throught the boolean expression.
+     * Use of the jboolexpr library to parse the boolean expression.
      *
      * @param query
      */
@@ -61,8 +61,8 @@ public class BooleanModel {
 
         in= new StringTokenizer(query," \n");
         
-        // 1o perasma tis query
-        // exagogi ton varon gia kathe oro
+        // 1st query parsing
+        // weight calculation for every term
         while(in.hasMoreTokens()){
                     String token = in.nextToken();
 
@@ -78,14 +78,13 @@ public class BooleanModel {
         }
 
 
-        // ipologismos tis omoiotitas gia kathe query-eggrafo
+        // similarity calculation for every query-document
         for(int i=0;i<simtab.length;i++){
             in= new StringTokenizer(query," \n");
             expr = new String();
-            //2o perasma tis query
+            // 2nd query parsing
 
-            //i logiki ekfrasi allazei se katallili morfi gia na epexergastei
-            //apo tin BooleanExpression tis vivliothikis jboolexpr
+            // boolean expression transforms for processing
              while(in.hasMoreTokens()){
                         String token = in.nextToken();
 
@@ -114,8 +113,8 @@ public class BooleanModel {
                         }
              }
 
-            //prosdiorismos omoiotitas query-eggrafou meso tis logikis ekfrasis
-            //hrisimpooithike i vivliothiki jboolexpr
+            // similarity calculation for query-document through the boolean expression
+            // jboolexpr lib used
              try {
                 boolexpr = BooleanExpression.readLeftToRight(expr);
                 bool = boolexpr.booleanValue();
@@ -133,7 +132,7 @@ public class BooleanModel {
     }
 
     /**
-     * Dimiourgei enan pinaka varon enos orou gia kathe eggrafo gia to boolean montelo.
+     * Creates a weights array of a term for every document.
      *
      * @param term
      * @return weights
@@ -143,8 +142,8 @@ public class BooleanModel {
         LinkedList<PostingListNode> postlist = new LinkedList<PostingListNode>();
         postlist = index.getPostingList(term);
 
-        // perasma tis posting list gia ton oro tou query
-        // osoi docs iparhoun sti lista simionontai me varos 1
+        // scanning the posting list for the query term
+        // if a docs exist on the list then weight=1
         Iterator<PostingListNode> it = postlist.iterator();
         while(it.hasNext()){
             weights[it.next().getDocID()-1] = 1;
@@ -154,12 +153,12 @@ public class BooleanModel {
     }
 
     /**
-     * Ektiposi apotelematon.
+     * Print results.
      */
     public void printSimilarDocs(){
         for(int i=0;i<simtab.length;i++){
             if(simtab[i] == 1){
-                 System.out.print("\nΒρέθηκε το έγγραφο με ID: ");
+                 System.out.print("\nÂñÝèçêå ôï Ýããñáöï ìå ID: ");
                  System.out.println(i+1);
                  System.out.println("\n" + index.getDocList().get(i).toString());
             }
