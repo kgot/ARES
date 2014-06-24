@@ -14,10 +14,10 @@ import java.util.LinkedList;
 import java.util.Set;
 
 /**
- * Ilopoiisi tou anestrammenou katalogou. Periehei episis kai ti lista ton eggrafon apo 
- * ta opoia proekipse o anestrammenos katalogos. O anestrammenos katalogos periehei to lexiko ton oron,
- * kathos kai ti lista emfaniseon kai plirofories gia to vector model (sihnotita emfanisis enos orou se ena eggrafo).
- *
+ * This class implments an inverted index. It also contains the list of docs.
+ * The inverted index contains the term dictionary, the posting lists and some some elements
+ * used from the vector model (term frequency in a document).
+ * 
  * @author Terminal
  */
 public class InvertedIndex implements Serializable {
@@ -33,11 +33,10 @@ public class InvertedIndex implements Serializable {
     }
 
     /**
-     * Prosthetei ena eggrafo sti lista ton eggrafon kai dimiourgei/prosthetei
-     * tous orous tou eggrafou sto lexiko. Episis dimiourgei/ananeonei ti lista emfaniseon
-     * gia kainourgios/iparhnotes orous.
+     * Puts a doc in the list of docs and adds it's term in the dictionary.
+     * It also updates the posting list for new or existing terms.
      * 
-     * @param d To document gia prostiki.
+     * @param d the document to be added
      */
     public void add(Document d) {
 
@@ -47,33 +46,33 @@ public class InvertedIndex implements Serializable {
         Set<String> keys;
         int docID = 0;
         int tf = 0;
-        int maxTf = 0;  //o oros pou emfanizetai perissoteres fores sto document
+        int maxTf = 0;  // most used term in a doc
         
-        //stopwords
+        // stopwords
         String stopwordsFileName = "stopwords.txt";
         HashSet<String> stopwordList= termparser.stopWords(stopwordsFileName);
 
         String token = "";
 
-        //prosthiki tou eggrafou sti lista eggrafon
+        // add doc to doc list
         docList.add(d);
         numDocuments++;
         docID = d.getID();
-        //parsing ton oron tou eggrafou (periehomenou kai titlou)
-        //pairnoume tous xehoristous orous tou eggrafou kai ti sihnotita emfanisis tous sto eggrafo
+        // parse doc terms
+        // unique terms and their frequency
         terms = termparser.getTerms(d);
 
-        //briskei to maxtf gia ka8e doc
+        // calculate maxTf of doc
         maxTf = termparser.getMaxTF();
-        //bazei to maxTF se ka8e eggrafo
+        // put maxTf in doc
         d.setMaxTf(maxTf);
-        //bazei to pli8os orwn se ka8e eggrafo;
+        // put term count in doc
         d.setSize(terms.size());
 
-        //ena set me tous orous
+        // set of terms
         keys = terms.keySet();
              
-        //epanaliptis gia tous orous
+        // term iterator
         Iterator it = keys.iterator();
         
         while(it.hasNext()){
@@ -83,37 +82,30 @@ public class InvertedIndex implements Serializable {
                 continue;
             }
             
-            //an o index periehei ton trehon oro
+            // if index contains current term
             if (index.containsKey(token)) {
-                //pernoume ti lista emfaniseon tou orou pou idi iparhei
+                // get existing posting list
                 postingList = index.get(token);
             } else {
-                //allios dimiourgoume mia kainourgia lista emfanisis gia ton kainourgio oro
+                // else create new posting list
                 postingList = new LinkedList<PostingListNode>();
                 index.put(token, postingList);
             }
 
             //tf: term frequency 
-            //epistrafike  apo tin getTerms() tou parser        
+            //parser getTerms() returns tf      
             tf = terms.get(token);
 
-            
-
-            //dimiourgia neou komvou tis listas emfanisis me ton arithmo tou eggrafou pou emfanistike o oros
-            //kai tis sihnotitas
+            // create new posting list node with doc id and term frequency
             PostingListNode currentNode = new PostingListNode(docID, tf);
-            //PostingListNode currentNode = new PostingListNode(docID, tf, maxTf, terms.size());
             postingList.add(currentNode);
         } 
     }
 
     /**
-     * Diagrafei ena eggrafo apo ton katalogo. Se proti fasi diagrafei
-     * to eggrafo apo ti lista eggrafon, diorthonei ta id ton epomenon
-     * kai meionei to sinoliko megethos ton eggrafon. Sti deuteri fasi anatrehei
-     * olous tous orous kai exetazei tis listes anaforas. An periehetai to eggrafo
-     * pros diagrafi, afaireitai apo tis listes, eno an i trehousa anafora ehei
-     * megalitero id, auto diorthonetai.
+     * Removes a doc from index. At first, deletes the doc from the doc list, updates 
+     * doc ids and reduces total doc number. Then, checks all terms and posting lists
+     * and updates them. 
      *
      * @param delDocID
      */
@@ -121,14 +113,14 @@ public class InvertedIndex implements Serializable {
         String str = "";
         LinkedList<PostingListNode> tmplist;
 
-        // leitourgia diagrafis gia ta eggrafa
+        // remove function for docs
         docList.remove(delDocID-1);
         for(int i=delDocID-1;i<numDocuments-1;i++){
             docList.get(i).setID(i+1);
         }
         numDocuments--;
 
-        // leitourgia diagrafis gia tous orous
+        // remove function for terms
         Iterator it = index.keySet().iterator();
         while(it.hasNext()){
             str = (String) it.next();
@@ -147,7 +139,7 @@ public class InvertedIndex implements Serializable {
     }
 
     /**
-     * Epistrefei ti lista emfaniseon enos dosmenou orou.
+     * Returns posting lists of a term.
      * 
      * @param term
      * @return result
@@ -166,7 +158,7 @@ public class InvertedIndex implements Serializable {
     }
 
     /**
-     * Epistrefei ti lista ton eggrafon.
+     * Returns the list of docs.
      * 
      * @return docList
      */
@@ -175,7 +167,7 @@ public class InvertedIndex implements Serializable {
     }
 
     /**
-     * Epistrefei ton anestrameno katalogo.
+     * Returns inverted index.
      * 
      * @return index
      */
@@ -184,7 +176,7 @@ public class InvertedIndex implements Serializable {
     }
     
     /**
-     * Adeiazei ton anestrameno katalogo kai ti lista eggrafon.
+     * Clears inverted index and doc list.
      */
     public void clear() {
         index.clear();
@@ -201,7 +193,7 @@ public class InvertedIndex implements Serializable {
 
 
     /**
-     * methodos toString gia dokimes
+     * method toString for tests
      */
     @Override
     public String toString() {
