@@ -75,7 +75,7 @@ public class IndeXingModule {
     public void closeCollection(){
         try {
             ObjectOutputStream collection = new ObjectOutputStream(new FileOutputStream(colFileName));
-            // write index ti file through stream
+            // write index to file through stream
             collection.writeObject(index);
             System.out.println("");
 
