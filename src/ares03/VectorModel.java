@@ -14,7 +14,7 @@ import java.util.Set;
 
 /**
  * H klasi pou dimiourgei to modelo Vector
- * @author odysseas
+ * @author terminal
  */
 public class VectorModel {
     
